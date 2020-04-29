@@ -49,20 +49,16 @@ public class Program {
 					.sorted()
 					.collect(Collectors.toList());
 			
-			for (String employeesEmails : emails) {
-				System.out.println(employeesEmails);
-			}
+			System.out.println("Email of people whose salary is more than " + String.format("%.2f", limitSalary)
+			+ ":");
+			emails.forEach(System.out::println);
 			
-			List<Double> salaries = employeesList.stream()
+			double sum = employeesList.stream()
 					.filter(x -> x.getName().charAt(0) == 'M')
 					.map(x -> x.getSalary())
-					.collect(Collectors.toList());
-			
-			double sum = 0.0;
-			for (Double employeesSalaries : salaries) {
-				sum += employeesSalaries;
-			}
-			System.out.println("Sum of salary of people whose name starts with 'M': " + sum);
+					.reduce(0.0, (x, y) -> x + y);
+						
+			System.out.println("Sum of salary of people whose name starts with 'M': " + String.format("%.2f", sum));
 			
 		} 
 		catch (FileNotFoundException e) {
